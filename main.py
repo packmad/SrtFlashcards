@@ -1,6 +1,7 @@
 import srt
 import string
 import sys
+import re
 
 from os.path import isfile
 from collections import Counter
@@ -28,7 +29,7 @@ if __name__ == "__main__":
     with open(input_sub_file, 'r') as file:
         data = file.read()
 
-        subs = [c.content.replace("<br/>", " ") for c in srt.parse(data)]
+        subs = [re.sub(r"(<br/>|\n|♪)", "", c.content) for c in srt.parse(data)]
 
         text_list = []
         text_set = set()
