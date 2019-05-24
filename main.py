@@ -3,7 +3,7 @@ import string
 import sys
 import re
 
-from os.path import isfile
+from os.path import isfile, join
 from collections import Counter
 
 
@@ -22,9 +22,11 @@ if __name__ == "__main__":
 
     known_words_file = "known_words.txt"
     known_names_file = "known_names.txt"
+    english_words_file = join("english-words", "words.txt")
 
     known_words = get_file_lines_set(known_words_file)
     known_names = get_file_lines_set(known_names_file)
+    english_words = get_file_lines_set(english_words_file)
 
     with open(input_sub_file, 'r') as file:
         data = file.read()
@@ -43,11 +45,8 @@ if __name__ == "__main__":
 
         unknown_set = text_set - known_words - known_names
         c = Counter(text_list)
-        i = 10
         for e in c.most_common():
             word = e[0]
-            if word in unknown_set:
-                print(e)
-                i -= 1
-                if i == 0:
-                    break
+            if word in unknown_set and word in english_words and len(word) > 1:
+                print(e[1], word, "\t", "https://www.wordreference.com/enit/"+word, "\t", "https://www.wordreference.com/ende/"+word)
+                #print(word)

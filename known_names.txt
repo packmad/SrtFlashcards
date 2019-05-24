@@ -76,3 +76,8 @@ davis
 zeno
 charlie
 gary
+rick
+morty
+ricks
+jerry
+shoney
